@@ -65,6 +65,17 @@ class Routes {
 	function getData($name) {
 		return isset($_POST[$name]) ? $_POST[$name] : NULL;
 	}
+	
+	function getUrlPath($path = '') {
+		// base url
+		$url = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
+		
+		// request uri
+		$requestUrl = $_SERVER['REQUEST_URI'];
+		$requestUrl = substr($requestUrl, 0, strrpos($requestUrl, "/") + 1);
+		
+		return $url . $requestUrl . $path;
+	}
 }
 
 ?>

@@ -55,6 +55,16 @@ class Routes {
 		echo json_encode($res);
 		exit();
 	}
+	
+	// http get param
+	function getParam($name, $defval = NULL) {
+		return isset($_GET[$name]) ? trim($_GET[$name]) : $defval;
+	}
+	
+	// http post param
+	function getData($name) {
+		return isset($_POST[$name]) ? $_POST[$name] : NULL;
+	}
 }
 
 ?>

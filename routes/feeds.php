@@ -5,8 +5,13 @@ class Feeds {
 	
 	function __construct($route) {
 		$this->route = $route;
-		
-		$route->setResult(0, array('test' => 1));
+	}
+	
+	function load() {
+		$test = $this->route->getParam('test', 'hehe');
+		$this->route->setResult(0, array(
+			'test'	=> $test
+		));
 	}
 }
 

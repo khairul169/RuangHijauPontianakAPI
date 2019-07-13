@@ -2,6 +2,7 @@
 define('ROUTES_DIR', __DIR__ . '/routes/');
 
 // routes
+include ROUTES_DIR . 'home.php';
 include ROUTES_DIR . 'feeds.php';
 
 class Routes {
@@ -16,10 +17,12 @@ class Routes {
 	}
 	
 	function getRoute($uri) {
+		// routes
 		switch ($uri) {
-			// feeds
+			case 'home':
+				return new HomeRoute;
 			case 'feeds':
-				return new Feeds($this);	
+				return new FeedsRoute;	
 			
 			default:
 				break;
@@ -31,7 +34,7 @@ class Routes {
 	function loadRoute() {
 		if ($this->route)
 			// load route
-			$this->route->load();
+			$this->route->load($this);
 		else
 			// route isn't valid
 			$this->setResult(-1);

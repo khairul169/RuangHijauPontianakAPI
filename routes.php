@@ -4,6 +4,7 @@ define('ROUTES_DIR', __DIR__ . '/routes/');
 // routes
 include ROUTES_DIR . 'home.php';
 include ROUTES_DIR . 'feeds.php';
+include ROUTES_DIR . 'post.php';
 
 class Routes {
 	var $route;
@@ -22,7 +23,9 @@ class Routes {
 			case 'home':
 				return new HomeRoute;
 			case 'feeds':
-				return new FeedsRoute;	
+				return new FeedsRoute;
+			case 'post':
+				return new PostRoute;
 			
 			default:
 				break;
@@ -32,12 +35,12 @@ class Routes {
 	}
 	
 	function loadRoute() {
+		// load route
 		if ($this->route)
-			// load route
 			$this->route->load($this);
-		else
-			// route isn't valid
-			$this->setResult(-1);
+		
+		// return invalid result
+		$this->setResult(-1);
 	}
 	
 	function setResult($returnCode, $args = NULL) {
@@ -78,6 +81,10 @@ class Routes {
 		$requestUrl = substr($requestUrl, 0, strrpos($requestUrl, "/") + 1);
 		
 		return $url . $requestUrl . $path;
+	}
+	
+	function getActionParam() {
+		return $this->getParam('action', null);
 	}
 }
 

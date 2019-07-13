@@ -7,16 +7,34 @@ include ROUTES_DIR . 'feeds.php';
 class Routes {
 	var $route;
 	
-	function __construct($route_name) {
-		switch ($route_name) {
+	function __construct($routeParam) {
+		// get route name
+		$routeName = isset($_GET[$routeParam]) ? trim($_GET[$routeParam]) : NULL;
+		
+		// create route
+		$this->route = $this->getRoute($routeName);
+	}
+	
+	function getRoute($uri) {
+		switch ($uri) {
+			// feeds
 			case 'feeds':
-				$this->route = new Feeds($this);
-				break;
+				return new Feeds($this);	
 			
 			default:
-				$this->setResult(-1);
 				break;
 		}
+		
+		return NULL;
+	}
+	
+	function loadRoute() {
+		if ($this->route)
+			// load route
+			$this->route->load();
+		else
+			// route isn't valid
+			$this->setResult(-1);
 	}
 	
 	function setResult($returnCode, $args = NULL) {
@@ -30,8 +48,5 @@ class Routes {
 		exit();
 	}
 }
-
-$routeName = isset($_GET['r']) ? trim($_GET['r']) : NULL;
-$routes = new Routes($routeName);
 
 ?>

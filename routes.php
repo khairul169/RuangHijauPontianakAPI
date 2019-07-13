@@ -38,12 +38,20 @@ class Routes {
 	}
 	
 	function setResult($returnCode, $args = NULL) {
+		// set header
+		header('Content-Type: application/json');
+		
+		// set result status
 		$res = array('status' => $returnCode);
+		
+		// push args
 		if ($args && is_array($args)) {
 			foreach ($args as $k => $v) {
 				$res[$k] = $v;
 			}
 		}
+		
+		// echo result
 		echo json_encode($res);
 		exit();
 	}

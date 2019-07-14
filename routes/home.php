@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../post_list.php';
 
 class HomeRoute {
-	// load route
+	
 	function load($route) {
 		$posts = getPostList($route);
 		

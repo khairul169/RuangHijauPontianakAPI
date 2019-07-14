@@ -2,6 +2,7 @@
 define('ROUTES_DIR', __DIR__ . '/routes/');
 
 // routes
+include ROUTES_DIR . 'auth.php';
 include ROUTES_DIR . 'home.php';
 include ROUTES_DIR . 'feeds.php';
 include ROUTES_DIR . 'post.php';
@@ -20,6 +21,8 @@ class Routes {
 	function getRoute($uri) {
 		// routes
 		switch ($uri) {
+			case 'auth':
+				return new AuthRoute;
 			case 'home':
 				return new HomeRoute;
 			case 'feeds':

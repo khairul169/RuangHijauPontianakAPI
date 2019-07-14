@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../post_list.php';
 
 class PostRoute {
-	// load route
+	
 	function load($route) {
 		switch ($route->getActionParam()) {
 			case 'get_post':

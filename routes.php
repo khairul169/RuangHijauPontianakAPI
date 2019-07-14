@@ -1,6 +1,8 @@
 <?php
 define('ROUTES_DIR', __DIR__ . '/routes/');
 
+require_once __DIR__ . '/database.php';
+
 // routes
 include ROUTES_DIR . 'auth.php';
 include ROUTES_DIR . 'home.php';
@@ -9,8 +11,12 @@ include ROUTES_DIR . 'post.php';
 
 class Routes {
 	var $route;
+	var $db;
 	
 	function __construct($routeParam) {
+		// initialize database
+		$this->db = new Database;
+		
 		// get route name
 		$routeName = isset($_GET[$routeParam]) ? trim($_GET[$routeParam]) : NULL;
 		
@@ -71,8 +77,8 @@ class Routes {
 	}
 	
 	// http post param
-	function getData($name) {
-		return isset($_POST[$name]) ? $_POST[$name] : NULL;
+	function getData($name, $defval = NULL) {
+		return isset($_POST[$name]) ? $_POST[$name] : $defval;
 	}
 	
 	function getUrlPath($path = '') {

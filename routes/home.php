@@ -11,8 +11,8 @@ class HomeRoute {
 		
 		foreach ($dbRes as $row) {
 			$posts[] = [
-				'id'		=> $row['id'],
-				'image'		=> $route->getUrlPath('userimages/' . $row['image']),
+				'id'		=> $row->id,
+				'image'		=> $route->getUrlPath('userimages/' . $row->image),
 				'name'		=> 'Test',
 				'username'	=> 'test'
 			];
@@ -30,7 +30,7 @@ class HomeRoute {
 		$result = $this->route->db->fetch_one("SELECT COUNT(id) AS `total` FROM posts;");
 		
 		if ($result)
-			return $result['total'];
+			return $result->total;
 		
 		return 0;
 	}

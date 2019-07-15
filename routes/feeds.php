@@ -8,12 +8,12 @@ class FeedsRoute {
 		
 		foreach ($dbRes as $row) {
 			$posts[] = [
-				'id'		=> $row['id'],
-				'image'		=> $route->getUrlPath('userimages/' . $row['image']),
+				'id'		=> $row->id,
+				'image'		=> $route->getUrlPath('userimages/' . $row->image),
 				'name'		=> 'Test',
 				'username'	=> 'test',
-				'likes'		=> $row['likes'],
-				'liked'		=> $this->isPostLiked($route, $row['id'])
+				'likes'		=> $row->likes,
+				'liked'		=> $this->isPostLiked($route, $row->id)
 			];
 		}
 		
@@ -24,7 +24,11 @@ class FeedsRoute {
 	
 	function isPostLiked($route, $postId) {
 		$result = $route->db->query("SELECT * FROM posts WHERE id='$postId' AND JSON_CONTAINS(user_likes, '1');");
-		return $result && ($result->num_rows > 0);
+		
+		if ($result && $result->num_rows)
+			return true;
+		
+		return false;
 	}
 }
 

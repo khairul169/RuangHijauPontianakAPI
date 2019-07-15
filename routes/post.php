@@ -33,14 +33,14 @@ class PostRoute {
 			return;
 		
 		$post = [
-			'id'		=> $row['id'],
-			'image'		=> $route->getUrlPath('userimages/' . $row['image']),
+			'id'		=> $row->id,
+			'image'		=> $route->getUrlPath('userimages/' . $row->image),
 			'name'		=> 'Test',
-			'desc'		=> $row['description'],
+			'desc'		=> $row->description,
 			'location'	=> 'Siantan',
-			'date'		=> date('d M Y H.i', $row['timestamp']),
-			'likes'		=> $row['likes'],
-			'liked'		=> $this->isPostLiked($route, $row['id'])
+			'date'		=> date('d M Y H.i', $row->timestamp),
+			'likes'		=> $row->likes,
+			'liked'		=> $this->isPostLiked($route, $row->id)
 		];
 		
 		$route->setResult(0, [

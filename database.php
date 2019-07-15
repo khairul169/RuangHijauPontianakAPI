@@ -52,7 +52,7 @@ class Database {
 		$rows = [];
 		
 		if ($result) {
-			while ($row = $result->fetch_assoc()) {
+			while ($row = $result->fetch_object()) {
 				$rows[] = $row;
 			}
 		}
@@ -67,7 +67,7 @@ class Database {
 		$result = $this->query($sql);
 		
 		if ($result && $result->num_rows)
-			return $result->fetch_assoc();
+			return $result->fetch_object();
 		
 		return false;
 	}

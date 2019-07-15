@@ -43,7 +43,7 @@ class AuthRoute {
 			return;
 		
 		// create session
-		$sessionId = $this->auth->getUserSessionId($result['id']);
+		$sessionId = $this->auth->getUserSessionId($result->id);
 		
 		$route->setResult(0, [
 			'sessionId'	=> $sessionId

@@ -1,8 +1,17 @@
 <?php
 
 class FeedsRoute {
-	// load route
+	// vars
+	var $route;
+	var $userId;
+	
 	function load($route) {
+		$this->route = $route;
+		$this->userId = $route->auth->isAuthenticated();
+		
+		if (!$this->userId)
+			return;
+		
 		$posts = [];
 		$dbRes = $route->db->fetch("SELECT * FROM posts ORDER BY id DESC");
 		
@@ -13,7 +22,7 @@ class FeedsRoute {
 				'name'		=> 'Test',
 				'username'	=> 'test',
 				'likes'		=> $row->likes,
-				'liked'		=> $this->isPostLiked($route, $row->id)
+				'liked'		=> $this->isPostLiked($row->id)
 			];
 		}
 		
@@ -22,13 +31,10 @@ class FeedsRoute {
 		));
 	}
 	
-	function isPostLiked($route, $postId) {
-		$result = $route->db->query("SELECT * FROM posts WHERE id='$postId' AND JSON_CONTAINS(user_likes, '1');");
-		
-		if ($result && $result->num_rows)
-			return true;
-		
-		return false;
+	function isPostLiked($postId) {
+		$userId = $this->userId;
+		$result = $this->route->db->query("SELECT * FROM posts WHERE id='$postId' AND JSON_CONTAINS(user_likes, '$userId');");
+		return $result && $result->num_rows;
 	}
 }
 

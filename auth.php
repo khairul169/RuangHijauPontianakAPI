@@ -32,7 +32,7 @@ class UserAuth {
 		$result = $this->db->fetch_one("SELECT * FROM user_session WHERE session_id='$sessionId' LIMIT 1;");
 		
 		if ($result)
-			return $result->id;
+			return $result->user;
 		
 		return false;
 	}

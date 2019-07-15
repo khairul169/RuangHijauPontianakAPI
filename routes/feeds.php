@@ -13,14 +13,26 @@ class FeedsRoute {
 			return;
 		
 		$posts = [];
-		$dbRes = $route->db->fetch("SELECT * FROM posts ORDER BY id DESC");
+		$rows = $route->db->fetch("SELECT * FROM posts ORDER BY id DESC");
 		
-		foreach ($dbRes as $row) {
+		if (!$rows)
+			$route->setResult(0, array(
+				'posts'		=> []
+			));
+		
+		foreach ($rows as $row) {
+			// get user data
+			$userId = $row->user;
+			$user = $this->route->db->fetch_one("SELECT * FROM users WHERE id='$userId' LIMIT 1;");
+			
+			if (!$user)
+				continue;
+			
 			$posts[] = [
 				'id'		=> $row->id,
 				'image'		=> $route->getUrlPath('userimages/' . $row->image),
-				'name'		=> 'Test',
-				'username'	=> 'test',
+				'name'		=> $user->name,
+				'username'	=> $user->username,
 				'likes'		=> $row->likes,
 				'liked'		=> $this->isPostLiked($row->id)
 			];

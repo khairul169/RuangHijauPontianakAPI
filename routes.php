@@ -2,6 +2,7 @@
 define('ROUTES_DIR', __DIR__ . '/routes/');
 
 require_once __DIR__ . '/database.php';
+require_once __DIR__ . '/auth.php';
 
 // routes
 include ROUTES_DIR . 'auth.php';
@@ -10,12 +11,17 @@ include ROUTES_DIR . 'feeds.php';
 include ROUTES_DIR . 'post.php';
 
 class Routes {
+	// vars
 	var $route;
 	var $db;
+	var $auth;
 	
 	function __construct($routeParam) {
 		// initialize database
 		$this->db = new Database;
+		
+		// user authentication
+		$this->auth = new UserAuth;
 		
 		// get route name
 		$routeName = isset($_GET[$routeParam]) ? trim($_GET[$routeParam]) : NULL;

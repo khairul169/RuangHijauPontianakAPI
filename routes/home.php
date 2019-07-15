@@ -1,10 +1,16 @@
 <?php
 
 class HomeRoute {
+	// vars
 	var $route;
+	var $userId;
 	
 	function load($route) {
 		$this->route = $route;
+		$this->userId = $route->auth->isAuthenticated();
+		
+		if (!$this->userId)
+			return;
 		
 		$posts = [];
 		$dbRes = $route->db->fetch("SELECT * FROM posts ORDER BY likes DESC LIMIT 5;");

@@ -16,11 +16,18 @@ class HomeRoute {
 		$dbRes = $route->db->fetch("SELECT * FROM posts ORDER BY likes DESC LIMIT 5;");
 		
 		foreach ($dbRes as $row) {
+			// get user data
+			$userId = $row->user;
+			$user = $this->route->db->fetch_one("SELECT * FROM users WHERE id='$userId' LIMIT 1;");
+			
+			if (!$user)
+				continue;
+			
 			$posts[] = [
 				'id'		=> $row->id,
 				'image'		=> $route->getUrlPath('userimages/' . $row->image),
-				'name'		=> 'Test',
-				'username'	=> 'test'
+				'name'		=> $user->name,
+				'username'	=> $user->username
 			];
 		}
 		

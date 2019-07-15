@@ -34,9 +34,6 @@ class PostRoute {
 		if (!$paramId)
 			return;
 		
-		// escape string
-		$paramId = $this->route->db->escape_string($paramId);
-		
 		// get post by id
 		$row = $this->route->db->fetch_one("SELECT * FROM posts WHERE id='$paramId' LIMIT 1;");
 		

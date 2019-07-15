@@ -9,6 +9,7 @@ include ROUTES_DIR . 'auth.php';
 include ROUTES_DIR . 'home.php';
 include ROUTES_DIR . 'feeds.php';
 include ROUTES_DIR . 'post.php';
+include ROUTES_DIR . 'profile.php';
 
 class Routes {
 	// vars
@@ -41,6 +42,8 @@ class Routes {
 				return new FeedsRoute;
 			case 'post':
 				return new PostRoute;
+			case 'profile':
+				return new ProfileRoute;
 			
 			default:
 				break;

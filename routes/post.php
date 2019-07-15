@@ -50,6 +50,7 @@ class PostRoute {
 		
 		$post = [
 			'id'		=> $row->id,
+			'user'		=> $row->user,
 			'image'		=> $this->route->getUrlPath('userimages/' . $row->image),
 			'name'		=> $user->name,
 			'desc'		=> $row->description,

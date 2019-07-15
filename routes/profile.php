@@ -33,16 +33,14 @@ class ProfileRoute {
 			return;
 		
 		// get user data
-		$userPosts = $route->db->fetch("SELECT *, COUNT(*) AS `num_posts`, SUM(likes) AS `num_likes` FROM posts WHERE user='$paramId' LIMIT 1;");
+		$userPosts = $route->db->fetch("SELECT * FROM posts WHERE user='$paramId';");
 		$posts = [];
-		$post_count = 0;
 		$likes = 0;
 		
 		if ($userPosts) {
-			$post_count = $userPosts[0]->num_posts;
-			$likes = $userPosts[0]->num_likes;
-			
 			foreach ($userPosts as $row) {
+				$likes = $likes + (int) $row->likes;
+				
 				$posts[] = [
 					'id'	=> $row->id,
 					'image' => $route->getUrlPath('userimages/' . $row->image)
@@ -59,7 +57,7 @@ class ProfileRoute {
 		$route->setResult(0, [
 			'profile'	=> $profile,
 			'posts'		=> $posts,
-			'post_count'	=> $post_count,
+			'post_count'	=> count($posts),
 			'likes'		=> $likes
 		]);
 	}

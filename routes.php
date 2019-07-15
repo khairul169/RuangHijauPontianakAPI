@@ -11,6 +11,7 @@ include ROUTES_DIR . 'home.php';
 include ROUTES_DIR . 'feeds.php';
 include ROUTES_DIR . 'post.php';
 include ROUTES_DIR . 'profile.php';
+include ROUTES_DIR . 'events.php';
 
 class Routes {
 	// vars
@@ -45,6 +46,8 @@ class Routes {
 				return new PostRoute;
 			case 'profile':
 				return new ProfileRoute;
+			case 'events':
+				return new EventsRoute;
 			
 			default:
 				break;
@@ -103,13 +106,16 @@ class Routes {
 	}
 	
 	function getImageUrl($fname) {
+		if (!$fname || trim($fname) == '')
+			return NULL;
+		
 		global $config;
-		return $this->getUrlPath($config['path']['user_img'] . $fname);
+		return $this->getUrlPath($config['path']['user_img'] . trim($fname));
 	}
 	
 	function getImagePath($fname) {
 		global $config;
-		return __DIR__ . $config['path']['user_img'] . $fname;
+		return __DIR__ . $config['path']['user_img'] . trim($fname);
 	}
 	
 	function getActionParam() {

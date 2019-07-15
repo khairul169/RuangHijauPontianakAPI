@@ -16,9 +16,7 @@ class FeedsRoute {
 		$rows = $route->db->fetch("SELECT * FROM posts ORDER BY id DESC");
 		
 		if (!$rows)
-			$route->setResult(0, array(
-				'posts'		=> []
-			));
+			return;
 		
 		foreach ($rows as $row) {
 			// get user data

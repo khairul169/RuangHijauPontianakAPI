@@ -22,4 +22,7 @@ $config['path'] = [
 	'user_img'	=> '/usrimg/'
 ];
 
+// date and time
+date_default_timezone_set('Asia/Jakarta');
+
 ?>

@@ -30,7 +30,7 @@ class FeedsRoute {
 			
 			$posts[] = [
 				'id'		=> $row->id,
-				'image'		=> $route->getUrlPath('userimages/' . $row->image),
+				'image'		=> $route->getImageUrl($row->image),
 				'name'		=> $user->name,
 				'username'	=> $user->username,
 				'likes'		=> $row->likes,

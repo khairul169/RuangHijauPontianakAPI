@@ -40,10 +40,9 @@ class ProfileRoute {
 		if ($userPosts) {
 			foreach ($userPosts as $row) {
 				$likes = $likes + (int) $row->likes;
-				
 				$posts[] = [
 					'id'	=> $row->id,
-					'image' => $route->getUrlPath('userimages/' . $row->image)
+					'image' => $route->getImageUrl($row->image)
 				];
 			}
 		}

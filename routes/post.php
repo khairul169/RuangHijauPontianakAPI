@@ -51,7 +51,7 @@ class PostRoute {
 		$post = [
 			'id'		=> $row->id,
 			'user'		=> $row->user,
-			'image'		=> $this->route->getUrlPath('userimages/' . $row->image),
+			'image'		=> $this->route->getImageUrl($row->image),
 			'name'		=> $user->name,
 			'desc'		=> $row->description,
 			'location'	=> $user->location,
@@ -74,7 +74,7 @@ class PostRoute {
 			return;
 		
 		$imageName = md5(rand().time()) . '.jpg';
-		$imageRes = $this->saveImage($imageData, $imageName);
+		$imageRes = $this->saveImage($imageData, $this->route->getImagePath($imageName));
 		
 		if (!$imageRes)
 			return;
@@ -143,11 +143,12 @@ class PostRoute {
 		}
 	}
 	
-	function saveImage($data, $fileName) {
+	function saveImage($data, $path) {
+		// decode image
 		$image = base64_decode($data);
-		$image = imagecreatefromstring($image);
 		
-		$path = __DIR__ . '/../userimages/' . $fileName;
+		// save image
+		$image = imagecreatefromstring($image);
 		$imageRes = imagejpeg($image, $path, 80);
 		imagedestroy($image);
 		

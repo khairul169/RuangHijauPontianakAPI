@@ -15,6 +15,11 @@ $config['db'] = [
 $config['hash'] = [
 	'prefix'	=> 'rhptk.',
 	'salt'		=> 'dicodingchallenge2019.71266128'
-]
+];
+
+// path
+$config['path'] = [
+	'user_img'	=> '/usrimg/'
+];
 
 ?>

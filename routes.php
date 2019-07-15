@@ -1,6 +1,7 @@
 <?php
 define('ROUTES_DIR', __DIR__ . '/routes/');
 
+require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/database.php';
 require_once __DIR__ . '/auth.php';
 
@@ -96,9 +97,19 @@ class Routes {
 		
 		// request uri
 		$requestUrl = $_SERVER['REQUEST_URI'];
-		$requestUrl = substr($requestUrl, 0, strrpos($requestUrl, "/") + 1);
+		$requestUrl = substr($requestUrl, 0, strrpos($requestUrl, "/"));
 		
 		return $url . $requestUrl . $path;
+	}
+	
+	function getImageUrl($fname) {
+		global $config;
+		return $this->getUrlPath($config['path']['user_img'] . $fname);
+	}
+	
+	function getImagePath($fname) {
+		global $config;
+		return __DIR__ . $config['path']['user_img'] . $fname;
 	}
 	
 	function getActionParam() {

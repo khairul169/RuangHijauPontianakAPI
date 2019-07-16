@@ -52,11 +52,11 @@ $db->query("CREATE TABLE IF NOT EXISTS events (
 // directories
 if (isset($config['path'])) {
 	foreach ($config['path'] as $dir) {
-		if (!file_exists($dir))
-			mkdir($dir, 0777, true);
+		if (!file_exists(__DIR__ . $dir))
+			mkdir(__DIR__ . $dir, 0777, true);
 		
-		if (!file_exists($dir . 'index.html'))
-			file_put_contents($dir . 'index.html', '');
+		if (!file_exists(__DIR__ . $dir . 'index.html'))
+			file_put_contents(__DIR__ . $dir . 'index.html', '');
 	}
 }
 

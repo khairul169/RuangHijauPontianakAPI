@@ -30,7 +30,7 @@ class FeedsRoute {
 				'id'		=> $row->id,
 				'image'		=> $route->getImageUrl($row->image),
 				'name'		=> $user->name,
-				'username'	=> $user->username,
+				'username'	=> $user->username . ($user->location ? (' • ' . $user->location) : NULL),
 				'likes'		=> $row->likes,
 				'liked'		=> $this->isPostLiked($row->id)
 			];

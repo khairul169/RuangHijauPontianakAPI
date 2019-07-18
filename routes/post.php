@@ -13,8 +13,8 @@ class PostRoute {
 			return;
 		
 		switch ($route->getActionParam()) {
-			case 'get_post':
-				$this->get_post();
+			case 'get':
+				$this->getPost();
 			
 			case 'create':
 				$this->create();
@@ -27,7 +27,7 @@ class PostRoute {
 		}
 	}
 	
-	function get_post() {
+	function getPost() {
 		// params
 		$paramId = (int) $this->route->getParam('id', null);
 		

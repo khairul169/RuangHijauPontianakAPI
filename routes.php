@@ -12,6 +12,7 @@ include ROUTES_DIR . 'feeds.php';
 include ROUTES_DIR . 'post.php';
 include ROUTES_DIR . 'profile.php';
 include ROUTES_DIR . 'events.php';
+include ROUTES_DIR . 'comments.php';
 
 class Routes {
 	// vars
@@ -48,6 +49,8 @@ class Routes {
 				return new ProfileRoute;
 			case 'events':
 				return new EventsRoute;
+			case 'comments':
+				return new CommentsRoute;
 			
 			default:
 				break;
@@ -73,9 +76,13 @@ class Routes {
 		$res = array('status' => $returnCode);
 		
 		// push args
-		if ($args && is_array($args)) {
-			foreach ($args as $k => $v) {
-				$res[$k] = $v;
+		if ($args) {
+			if (is_array($args)) {
+				foreach ($args as $k => $v) {
+					$res[$k] = $v;
+				}
+			} else {
+				$res['message'] = $args;
 			}
 		}
 		

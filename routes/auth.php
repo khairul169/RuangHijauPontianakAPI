@@ -27,7 +27,7 @@ class AuthRoute {
 		$password = $this->route->getData('password');
 		
 		if (!$username || !$password)
-			return;
+			return $this->route->setResult(1, "Nama pengguna atau password kosong.");
 		
 		// escape strings
 		$username = $this->route->db->escape_string($username);
@@ -37,7 +37,7 @@ class AuthRoute {
 		$result = $this->route->db->fetch_one("SELECT id FROM users WHERE username='$username' AND password='$password' LIMIT 1;");
 		
 		if (!$result)
-			return;
+			return $this->route->setResult(2, "Nama pengguna atau password salah.");
 		
 		// create session
 		$sessionId = $this->route->auth->getUserSessionId($result->id);
@@ -53,13 +53,13 @@ class AuthRoute {
 		$password = $this->route->getData('password');
 		
 		if (!$fullName || !$username || !$password)
-			return;
+			return $this->route->setResult(1, "Terdapat input yang kosong.");
 		
 		// check if username is exists
 		$result = $this->route->db->query("SELECT id FROM users WHERE username='$username' LIMIT 1;");
 		
 		if ($result->num_rows)
-			return;
+			return $this->route->setResult(2, "Nama pengguna telah digunakan!");
 		
 		// escape strings
 		$fullName = $this->route->db->escape_string($fullName);
@@ -71,7 +71,7 @@ class AuthRoute {
 		$result = $this->route->db->query("INSERT INTO users (username, password, name, registered) VALUES ('$username', '$password', '$fullName', '$timestamp');");
 		
 		if (!$result)
-			return;
+			return $this->route->setResult(3, "Gagal membuat akun!");
 		
 		// user id
 		$userId = $this->route->db->last_insert_id();

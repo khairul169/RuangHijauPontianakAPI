@@ -49,6 +49,17 @@ $db->query("CREATE TABLE IF NOT EXISTS events (
 	PRIMARY KEY (id)
 ) DEFAULT CHARSET=utf8;");
 
+// comments table
+$db->query("CREATE TABLE IF NOT EXISTS comments (
+	id int(255) NOT NULL AUTO_INCREMENT,
+	type int(8) NOT NULL,
+	post_id int(255) NOT NULL,
+	user int(255) NOT NULL,
+	comment longtext NOT NULL,
+	timestamp int(255) NOT NULL,
+	PRIMARY KEY (id)
+) DEFAULT CHARSET=utf8;");
+
 // directories
 if (isset($config['path'])) {
 	foreach ($config['path'] as $dir) {
